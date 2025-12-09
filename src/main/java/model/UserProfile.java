@@ -21,7 +21,7 @@ public class UserProfile {
     public UserProfile() {
         Faker faker = new Faker();
 
-        this.name = faker.name().fullName();
+        this.name = faker.name().firstName() + " " + faker.name().lastName();
         this.email = faker.internet().safeEmailAddress(this.name);
         this.dob = faker.expression("#{date.birthday '18','70','yyyy-MM-dd'}");
         this.address = faker.address().fullAddress();
@@ -38,6 +38,15 @@ public class UserProfile {
         // To avoid if index > list size
         return new UserProfile(testimonials.get(index % testimonials.size()));
     }
+
+    // Getters to access values
+    public String getName() { return name; }
+    public String getEmail() { return email; }
+    public String getDob() { return dob; }
+    public String getAddress() { return address; }
+    public String getPassword() { return password; }
+    public String getAvatar() { return avatar; }
+
 }
 
 

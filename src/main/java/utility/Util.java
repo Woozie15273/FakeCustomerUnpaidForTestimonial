@@ -40,6 +40,18 @@ public class Util {
         return getConfig("avatar_source");
     }
 
+    public static String getWebsite() {
+        return getConfig("demo_website");
+    }
+
+    public static Boolean getHeadless() {
+        String config = getConfig("headless");
+        if (config == null) {
+            return false; // fallback if not set
+        }
+        return config.equalsIgnoreCase("true");
+    }
+
     /**
      * if user_count is minus # or NaN, the fallback value will be 1.
      * Thus, the script will at least generate 1 entry
