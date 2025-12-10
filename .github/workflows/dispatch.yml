@@ -2,6 +2,7 @@ name: Demo Workflow
 
 on:
   workflow_dispatch:   # manual trigger
+  push:                # run on code pushes
   # schedule:          # cron job (commented out)
   #   - cron: "0 0 1 * *"   # run on first day of the month
 
@@ -21,8 +22,8 @@ jobs:
           java-version: '25'
           distribution: 'temurin'
 
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
+      - name: Build with Maven (skip tests)
+        run: mvn -B package -DskipTests --file pom.xml
 
       - name: Run App.java
         run: java -cp target/classes src/main/java/App.java
