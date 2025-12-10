@@ -1,0 +1,31 @@
+name: Demo Workflow
+
+on:
+  workflow_dispatch:   # manual trigger
+  # schedule:          # cron job (commented out)
+  #   - cron: "0 0 1 * *"   # run on first day of the month
+
+jobs:
+  build-and-run:
+    runs-on: windows-latest
+    env:
+      TZ: America/Los_Angeles   # Set timezone to PST
+
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 25 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+
+      - name: Run App.java
+        run: java -cp target/classes src/main/java/App.java
+
+      - name: Run tests
+        run: mvn test
